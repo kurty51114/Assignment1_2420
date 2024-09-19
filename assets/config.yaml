@@ -1,0 +1,32 @@
+#cloud-config
+users:
+  - name: kurti
+    primary_group: admin 
+    groups: admin, newgroup
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) NOPASSWD:ALL']
+    ssh-authorized-keys:
+      - ssh-ed25519 your-ssh-public-key # change this
+  - name: testUnit
+    primary_group: newgroup
+    groups: newgroup
+    shell: /bin/bash
+    sudo: ['ALL=(ALL) ALL']
+    ssh-authorized-keys:
+      - ssh-ed25519 your-ssh-public-key # change this
+    passwd: 2420Assignment1
+    
+packages:
+  - ripgrep
+  - rsync
+  - neovim
+  - fd
+  - less
+  - man-db
+  - bash-completion
+  - tmux
+  - git
+  - gettext-base
+  - awk
+
+disable_root: true
