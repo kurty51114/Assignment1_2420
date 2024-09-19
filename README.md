@@ -12,4 +12,20 @@ All necessary files and instructions are included in the current GitHub reposito
 
 ---
 
-## Generating ssh keys
+## Generating SSH keys (CLI)
+
+First, we need to generate an SSH key pair. This will allow us to securely connect to our droplet.
+
+The ssh-keygen package should already be installed onto your system. SSH information is stored in a folder called .ssh in your home directory. For Windows users, this folder may not yet be created. If you do not see your .ssh folder in your home directory, create it before conducting the following steps.
+
+1. Open a terminal window and run the following command to generate a new SSH key pair:
+
+```bash
+ssh-keygen -t ed25519 -f ~/.ssh/do-key -C "your email address"
+```
+
+If on windows, you can use the following command:
+
+```bash
+ssh-keygen -t ed25519 -f C:\Users\your-user-name\.ssh\do-key -C "youremail@email.com"
+```
