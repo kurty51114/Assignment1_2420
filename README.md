@@ -18,9 +18,7 @@ First, we need to generate an SSH key pair. This will allow us to securely conne
 
 The ssh-keygen package should already be installed onto your system. SSH information is stored in a folder called .ssh in your home directory. For Windows users, this folder may not yet be created. If you do not see your .ssh folder in your home directory, create it before conducting the following steps.
 
-1. Open a terminal window and run the following command to generate a new SSH key pair:
-
-Note: make sure to change the default fields to your user name and email address. Follow the prompts shown to generate your key.
+1. Open a terminal window and run the following command to generate a new SSH key pair. Make sure to change the default fields to your user name and email address. Follow the prompts in the terminal window to generate your key:
 
 ```bash
 ssh-keygen -t ed25519 -f C:\Users\your-user-name\.ssh\do-key -C "youremail@email.com"
@@ -29,57 +27,80 @@ ssh-keygen -t ed25519 -f C:\Users\your-user-name\.ssh\do-key -C "youremail@email
 This command uses the ssh-keygen module, and it takes the type (-t), filename (-f), and comment (-C) fields. This command specifically uses the "ed25519" cryptography algorithm, points to the .ssh folder, and adds your email as a comment. 
 
 Congratulations! You have successfully created an ssh key pair. These commands create two new files called 'do-key' and 'do-key.pub'. The contents of the 'do-key' files contains the private and public keys, respectively. You will be using these keys later on in configuration to connect to your droplet.
-## Downloading and Configuring Doctl
+
+---
+## Downloading and Authenticating Doctl to set up Arch Linux Remote Server
 
 Doctl is the official DigitalOcean command line interface (CLI). Doctl is the tool we will be using to interact with the DigitalOcean API and set up our remote server.
 
-To install Doctl on Windows: 
+Assuming that we already have an existing droplet running Arch: 
 
-1. Run the following command in the terminal window:
+1. Run the following command in the terminal window from the home directory:
 
 ```bash
-Invoke-WebRequest https://github.com/digitalocean/doctl/releases/download/v1.114.0/doctl-1.114.0-windows-amd64.zip -OutFile <chosen destination file location>
+sudo pacman -S doctl
 ```
 
-![Invoke-WebRequest](Invoke-WebRequest.png)
+![sudoPacman](sudoPacman.png)
 
-This command pulls the file from the GitHub URL and downloads it to the destination of your choice. Make sure to change the destination file locations to the location of your choice.
+This command uses "sudo" to allow the user to make changes to the system. "Pacman" is the command used to invoke the package manager, which we will be using to install the doctl package already included in the arch package repositories.
 
-The following blue bar will show up on your terminal:
+The following will show up on your terminal:
 
 ![InvokeResult.png](InvokeResult.png)
 
-2. Next, run the following command to extract the binary:
+Follow the prompts to complete the installation of doctl. 
 
+2. Go to your control panel on the DigitalOcean website. On the left menu bar, scroll down to the following section and click on **API**:
+
+   ![apiMenu.png](apiMenu.png)
+
+3. Click on **Generate New Token** once the following window appears:
+
+![applicationsApi.png](applicationsApi.png)
+
+4. Fill out the form according to your preferences. For this example, the token name will be set to newArchServer1, granting full access for the duration of 30 days. Click on **Generate Token**.![PATForm](PATForm.png)
+5. Copy the newly generated token from the textbox on the following screen. ![copyToken](copyToken.png)
+
+6. Go back to the terminal window. Run the following command to request authorization for doctl to be used with your DigitalOcean account:
+
+Make sure to replace the authorization context name with the name of your choice. 
 ```bash
-Expand-Archive -Path ~\doctl-1.110.0-windows-amd64.zip
+doctl auth init --context <NAME>
 ```
 
-![Expand-Archive](Expand-Archive.png)
+In this example, the authorization name is 'connection'.
 
-This command expands the zip file that you downloaded in the previous step, taking the -Path flag which allows us to point to the location of the file we wish to expand: the doctl zip file.
+![authInit](authInit.png)
 
-3. copy the file into the same directory.
+7. Paste the authentication token you copied earlier beside *Enter your access token* and press **Enter**:
 
-4.  Close the current window and reopen the terminal with Run as Administrator in the same folder that you installed doctl.
+![enterToken](enterToken.png)
 
-![Terminal](Terminal.png)
+The terminal should show *Validating token...* Followed by a checkmark to indicate authorization success:
 
-5.  Run the following command to move the doctl binary into its own dedicated directory, then add it to your system's path:
-   
+![tokenValid](tokenValid.png)
+
+8. Run the following command to confirm authentication:
+
 ```bash
-New-Item -ItemType Directory $env:ProgramFiles\doctl\
-Move-Item -Path doctl-1.110.0-windows-amd64\doctl.exe -Destination $env:ProgramFiles\doctl\
-[Environment]::SetEnvironmentVariable(
-    "Path",
-    [Environment]::GetEnvironmentVariable("Path",
-    [EnvironmentVariableTarget]::Machine) + ";$env:ProgramFiles\doctl\",
-    [EnvironmentVariableTarget]::Machine)
-$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine")
+doctl account get
 ```
 
-6. In File Explorer, go to C:\\Program Files\\doctl to confirm the file has been transferred to the doctl folder.
+The terminal should show a table of information, including user email, team, droplet limit, email verification status and user UUID as follows: 
 
-Congratulations! You have completed the steps to download and configure doctl with Windows.
+![accountGet](accountGet.png)
+
+Congratulations, you have successfully installed and connected your account to doctl on your current arch server.
+
+---
+## Creating Arch Droplet from Current Droplet
+
+A DigitalOcean droplet is a new instance of a sever hosted by DigitalOcean. In the following steps, we will be creating and configuring a droplet in the San Francisco 3 region running Arch Linux.
+
+
+
+
+
 
 https://docs.digitalocean.com/reference/doctl/
