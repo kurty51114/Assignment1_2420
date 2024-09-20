@@ -41,26 +41,26 @@ Assuming that we already have an existing droplet running Arch:
 sudo pacman -S doctl
 ```
 
-![sudoPacman](sudoPacman.png)
+![sudoPacman](assets/sudoPacman.png)
 
 This command uses "sudo" to allow the user to make changes to the system. "Pacman" is the command used to invoke the package manager, which we will be using to install the doctl package already included in the arch package repositories.
 
 The following will show up on your terminal:
 
-![InvokeResult.png](InvokeResult.png)
+![InvokeResult.png](assets/InvokeResult.png)
 
 Follow the prompts to complete the installation of doctl. 
 
 2. Go to your control panel on the DigitalOcean website. On the left menu bar, scroll down to the following section and click on **API**:
 
-   ![apiMenu.png](apiMenu.png)
+   ![apiMenu.png](assets/apiMenu.png)
 
 3. Click on **Generate New Token** once the following window appears:
 
-![applicationsApi.png](applicationsApi.png)
+![applicationsApi.png](assets/applicationsApi.png)
 
-4. Fill out the form according to your preferences. For this example, the token name will be set to newArchServer1, granting full access for the duration of 30 days. Click on **Generate Token**.![PATForm](PATForm.png)
-5. Copy the newly generated token from the textbox on the following screen. ![copyToken](copyToken.png)
+4. Fill out the form according to your preferences. For this example, the token name will be set to newArchServer1, granting full access for the duration of 30 days. Click on **Generate Token**.![PATForm](assets/PATForm.png)
+5. Copy the newly generated token from the textbox on the following screen. ![copyToken](assets/copyToken.png)
 
 6. Go back to the terminal window. Run the following command to request authorization for doctl to be used with your DigitalOcean account:
 
@@ -71,15 +71,15 @@ doctl auth init --context <NAME>
 
 In this example, the authorization name is 'connection'.
 
-![authInit](authInit.png)
+![authInit](assets/authInit.png)
 
 7. Paste the authentication token you copied earlier beside *Enter your access token* and press **Enter**:
 
-![enterToken](enterToken.png)
+![enterToken](assets/enterToken.png)
 
 The terminal should show *Validating token...* Followed by a checkmark to indicate authorization success:
 
-![tokenValid](tokenValid.png)
+![tokenValid](assets/tokenValid.png)
 
 8. Run the following command to confirm authentication:
 
@@ -89,7 +89,7 @@ doctl account get
 
 The terminal should show a table of information, including user email, team, droplet limit, email verification status and user UUID as follows: 
 
-![accountGet](accountGet.png)
+![accountGet](assets/accountGet.png)
 
 Congratulations, you have successfully installed and connected your account to doctl on your current arch server.
 
