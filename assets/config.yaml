@@ -6,16 +6,15 @@ users:
     shell: /bin/bash
     sudo: ['ALL=(ALL) NOPASSWD:ALL']
     ssh-authorized-keys:
-      - ssh-ed25519 your-ssh-public-key # change this
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF7+r3Pwhz0wpNOd5W/xQh1ZqO/2jX3Zl5+NQ6qu18RZ kli180@my.bcit.ca
   - name: testUnit
     primary_group: newgroup
     groups: newgroup
     shell: /bin/bash
     sudo: ['ALL=(ALL) ALL']
     ssh-authorized-keys:
-      - ssh-ed25519 your-ssh-public-key # change this
+      - ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIF7+r3Pwhz0wpNOd5W/xQh1ZqO/2jX3Zl5+NQ6qu18RZ kli180@my.bcit.ca
     passwd: 2420Assignment1
-    
 packages:
   - ripgrep
   - rsync
@@ -28,5 +27,4 @@ packages:
   - git
   - gettext-base
   - awk
-
 disable_root: true
