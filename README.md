@@ -215,7 +215,8 @@ The neovim text editor will create and open the cloud-init file in neovim.
 > ```
 
 > [!IMPORTANT]
-> The default value *your-public-key-here* is replaced by the text we copied from the public key file. In general, it is good practice to keep the same name for your user name and your group name, reflecting the default naming convention.
+> - The default value *your-public-key-here* is replaced by the text we copied from the public key file. 
+> - In general, it is good practice to keep the same name for your user name and your group name, reflecting the default naming convention.
 
 8. Press escape and then type **:wq** to save and quit the file.
 
