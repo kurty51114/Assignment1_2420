@@ -1,7 +1,6 @@
 # How to Create a New DigitalOcean Droplet Running Arch Linux Using 'Doctl' and Command Line Tools
 
-By Kurtis Li
-A01382545
+*By Kurtis Li - A01382545*
 
 ---
 ## Introduction
