@@ -29,7 +29,7 @@ This command uses the ssh-keygen module, and it takes the type (-t), filename (-
 Congratulations! You have successfully created an ssh key pair. Two files will be created, one file with the name you selected and one with a file extension *.pub*. The contents of these files contains the private and public keys, respectively. You will be using these keys later on in configurating connection to your droplet.
 
 ---
-## Downloading and Authenticating Doctl to set up Arch Linux Remote Server
+## Downloading Doctl to set up Arch Linux Remote Server
 
 Doctl is the official DigitalOcean command line interface (CLI). Doctl is the tool we will be using to interact with the DigitalOcean API and set up our remote server (doctl Command Line Interface, 2024).  To download Doctl:
 
@@ -39,7 +39,8 @@ Doctl is the official DigitalOcean command line interface (CLI). Doctl is the to
 sudo pacman -S doctl
 ```
 
-This command uses *sudo* to allow the user to make changes to the system. *Pacman* is the used to invoke the package manager, which we will be using to install the doctl package already included in the arch package repositories.
+> [!NOTE]
+> This command uses *sudo* to allow the user to make changes to the system. *Pacman* is the used to invoke the package manager, which we will be using to install the doctl package already included in the arch package repositories.
 
 The following will show up on your terminal:
 
@@ -49,7 +50,7 @@ Follow the prompts to complete the installation of doctl.
 
 ---
 
-### Creating an Access Token to Connect Doctl to your DigitalOcean Account
+## Creating an Access Token to Connect Doctl to your DigitalOcean Account
 
 The next step we must conduct is creating an access token, which is used to connect our DigitalOcean account to the doctl tool used in the terminal. To create our access token and connect doctl to our DigitalOcean account:
 
@@ -124,7 +125,7 @@ After clicking upload, a new settings box will open and you will need to select 
 You have successfully uploaded the Arch image to digitalOcean.
 
 ---
-## Creating Arch Droplet from Current Droplet
+## Creating Arch Droplet from Host Machine
 
 A DigitalOcean droplet is a new instance of a sever hosted by DigitalOcean, the Software as a Service (SaaS) provider that we're using. In the following steps, we will be creating and configuring a droplet in the San Francisco 3 datacentre running Arch Linux. 
 
@@ -212,7 +213,8 @@ disable_root: true
 
 ```
 
-The default value *your-public-key-here* should be replaced by the text we copied from the public key file.
+> [!IMPORTANT]
+> The default value *your-public-key-here* is replaced by the text we copied from the public key file.
 
 8. Press escape and then type **:wq** to save and quit the file.
 
@@ -251,7 +253,7 @@ This command is one of the longest commands we will run during setup. The comman
 - **--region** - the datacentre that we are creating the droplet on - San Francisco 3
 - **--ssh-keys** - the fingerprint of the SSH key we created
 - **--user-data-file** the path to the cloud-init file we created
-- - **droplet name** - your chosen name for the droplet
+- **--wait** - where you put your chosen name for the droplet
 
 The following information should appear on your Terminal indicating a successful droplet deployment:
 
