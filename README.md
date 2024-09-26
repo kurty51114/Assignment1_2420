@@ -51,7 +51,7 @@ Follow the prompts to complete the installation of doctl.
 
 ## Creating an Access Token to Connect Doctl to your DigitalOcean Account
 
-The next step we must conduct is creating an access token, which is used to connect our DigitalOcean account to the doctl tool used in the terminal. To create our access token and connect doctl to our DigitalOcean account:
+The next step is to create an access token, which is used to connect our DigitalOcean account to the doctl tool used in the terminal. To create our access token and connect doctl to our DigitalOcean account:
 
 1. Go to your control panel on the DigitalOcean website. On the left navigation bar, scroll down to the following section and click on **API**:
 
@@ -97,7 +97,7 @@ The terminal should show a table of the following information, including user em
 
 ![accountGet](assets/accountGet.png)
 
-Congratulations, you have successfully installed and connected your account to doctl on your current arch server.
+Congratulations! You have successfully installed and connected your account to doctl on your current arch server.
 
 ---
 ## Uploading Arch Image to DigitalOcean
@@ -215,7 +215,7 @@ The neovim text editor will create and open the cloud-init file in neovim.
 > ```
 
 > [!IMPORTANT]
-> The default value *your-public-key-here* is replaced by the text we copied from the public key file.
+> The default value *your-public-key-here* is replaced by the text we copied from the public key file. In general, it is good practice to keep the same name for your user name and your group name, reflecting the default naming convention.
 
 8. Press escape and then type **:wq** to save and quit the file.
 
