@@ -20,9 +20,9 @@ The ssh-keygen package should already be installed onto your system. SSH informa
 
 1. Open a terminal window and run the following command to generate a new SSH key pair. Make sure to change the default fields to your own key name and email address to your preferences. Follow the prompts in the terminal window to generate your key:
 
-```bash
-ssh-keygen -t ed25519 -f ~/ssh/<key-name> -C "youremail@email.com"
-```
+> ```bash
+> ssh-keygen -t ed25519 -f ~/ssh/<key-name> -C "youremail@email.com"
+> ```
 
 This command uses the ssh-keygen module, and it takes the type (-t), filename (-f), and comment (-C) fields. This command specifically uses the "ed25519" cryptography algorithm, points to the .ssh folder where the key will be created, and adds your email as a comment. 
 
@@ -35,9 +35,9 @@ Doctl is the official DigitalOcean command line interface (CLI). Doctl is the to
 
 1. Run the following command in the terminal window from your home directory:
 
-```bash
-sudo pacman -S doctl
-```
+> ```bash
+> sudo pacman -S doctl
+> ```
 
 > [!NOTE]
 > This command uses *sudo* to allow the user to make changes to the system. *Pacman* is the used to invoke the package manager, which we will be using to install the doctl package already included in the arch package repositories.
@@ -56,7 +56,7 @@ The next step we must conduct is creating an access token, which is used to conn
 
 1. Go to your control panel on the DigitalOcean website. On the left navigation bar, scroll down to the following section and click on **API**:
 
-   ![apiMenu.png](assets/apiMenu.png)
+![apiMenu.png](assets/apiMenu.png)
 
 2. Click on **Generate New Token** once the following window appears:
 
@@ -73,9 +73,10 @@ The next step we must conduct is creating an access token, which is used to conn
 5. Go back to the terminal window. Run the following command to request authorization for doctl to be used with your DigitalOcean account:
 
 Make sure to replace the authorization context name with the name of your choice. 
-```bash
-doctl auth init --context <NAME>
-```
+
+> ```bash
+> doctl auth init --context <NAME>
+> ```
 
 This command starts the doctl authentication tool with which you can use the token you just created to connect doctl to your account with DigitalOcean
 
@@ -89,9 +90,9 @@ The terminal should show *Validating token...* Followed by a checkmark to indica
 
 7. Run the following command to confirm authentication:
 
-```bash
-doctl account get
-```
+> ```bash
+> doctl account get
+> ```
 
 The terminal should show a table of the following information, including user email, team, droplet limit, email verification status and user UUID as follows: 
 
@@ -130,14 +131,15 @@ You have successfully uploaded the Arch image to digitalOcean.
 A DigitalOcean droplet is a new instance of a sever hosted by DigitalOcean, the Software as a Service (SaaS) provider that we're using. In the following steps, we will be creating and configuring a droplet in the San Francisco 3 datacentre running Arch Linux. 
 
 > [!NOTE]
-> : We are using the San Francisco 3 datacentre because it is the closest in proximity to our location, meaning we have the best chance for a strong connection.
+> We are using the San Francisco 3 datacentre because it is the closest in proximity to our location, meaning we have the best chance for a strong connection.
+
 ### Uploading SSH Public Key to DigitalOcean Account
 
 The first step to setting up a new DigitalOcean droplet is to upload our previously created public key to DigitalOcean. We can use the doctl tool to perform this task. In Terminal on your local machine, run the following command ensuring to change the default fields to your own:
 
-```bash
-doctl compute ssh-key import <insert-key-name> --public-key-file ~/.ssh/<your-key.pub>
-```
+> ```bash
+> doctl compute ssh-key import <insert-key-name> --public-key-file ~/.ssh/ <your-key.pub>
+> ```
 
 This command uses the doctl tool to import the ssh key from the ssh key pair we created in earlier steps to DigitalOcean.
 
@@ -156,9 +158,9 @@ To create the cloud-init file that we will be using to set up the new droplet:
 
 1. Back in your terminal, open the contents of your public key file with the following command (change the default value with your key name): 
 
-```bash
-cat ~/.ssh/<public-key>.pub
-```
+> ```bash
+> cat ~/.ssh/<public-key>.pub
+> ```
 
 > [!NOTE]
 > The cat command (meaning concatenate) prints out the contents of any file whose path we input as the argument for the command.*
@@ -167,9 +169,9 @@ cat ~/.ssh/<public-key>.pub
 
 3. Run the following command and follow the prompts provided to install the neovim package:
    
-```bash
-sudo pacman -S neovim
-```
+> ```bash
+> sudo pacman -S neovim
+> ```
 
 Neovim is a text editor that provides much greater functionality than simply using the terminal CLI. Not only will we be using Neovim to visualize/edit our cloud-init file, but it will be useful in many various different cases further along in our  and in professional settings.
 
@@ -177,9 +179,9 @@ With Neovim installed, we can now use it to edit our cloud-init file.
 
 5. Run Neovim with the following command:
 
-```bash
-nvim cloud-init.yaml
-```
+> ```bash
+> nvim cloud-init.yaml
+> ```
 
 The neovim text editor will create and open the cloud-init file in neovim. 
 
@@ -187,31 +189,31 @@ The neovim text editor will create and open the cloud-init file in neovim.
 
 7. Paste the following into the file and make changes to the default values:
 
-```yaml
-#cloud-config
-users:
-  - name: <your-user-name>
-    primary_group: <insert-group> 
-    groups: <insert-group>
-    shell: /bin/bash
-    sudo: ['ALL=(ALL) NOPASSWD:ALL']
-    ssh-authorized-keys:
-      - <your-public-key-here>
-packages:
-  - ripgrep
-  - rsync
-  - neovim
-  - fd
-  - less
-  - man-db
-  - bash-completion
-  - tmux
-  - git
-  - gettext-base
-  - awk
-disable_root: true
-
-```
+> ```yaml
+> #cloud-config
+> users:
+>   - name: <your-user-name>
+>     primary_group: <insert-group> 
+>     groups: <insert-group>
+>     shell: /bin/bash
+>     sudo: ['ALL=(ALL) NOPASSWD:ALL']
+>     ssh-authorized-keys:
+>       - <your-public-key-here>
+> packages:
+>   - ripgrep
+>   - rsync
+>   - neovim
+>   - fd
+>   - less
+>   - man-db
+>   - bash-completion
+>   - tmux
+>   - git
+>   - gettext-base
+>   - awk
+> disable_root: true
+> 
+> ```
 
 > [!IMPORTANT]
 > The default value *your-public-key-here* is replaced by the text we copied from the public key file.
@@ -227,24 +229,25 @@ You have now completed all the steps you need in preparation for deploying the D
 
 1. Run the following command into the Terminal:
 
-```bash
-doctl compute ssh-key list
-```
+> ```bash
+> doctl compute ssh-key list
+> ```
 
 This command will return the list of SSH keys we have connected to DigitalOcean. We will be using the SSH Fingerprint connected to the SSH you created, so copy down the contents under the Fingerprint columb of the SSH key you will be using.
 
 2. Get the list of images within DigitalOcean's library using the following command:
-```bash
-doctl compute image list
-```
+
+> ```bash
+> doctl compute image list
+> ```
 
 This command returns the list of images available to be used to deploy droplets. Search for the Arch linux image that we uploaded to DigitalOcean; under **Type**, the custom image should say *custom*, and under **Distribution**, the image should say *Arch Linux*. Copy down the ID of the image.
 
 3. Run the following command to deploy your droplet:
 
-```bash
-doctl compute droplet create --image <image-ID> --size s-1vcpu-1gb-amd --region sfo3 --ssh-keys <ssh-key-fingerprint> --user-data-file <path-to-your-cloud-init-file> --wait <name of your droplet>
-```
+> ```bash 
+> doctl compute droplet create --image <image-ID> --size s-1vcpu-1gb-amd --region sfo3 --ssh-keys <ssh-key-fingerprint> --user-data-file <path-to-your-cloud-init-file> --wait <name of your droplet>
+> ```
 
 This command is one of the longest commands we will run during setup. The command operates as follows:
 
@@ -274,34 +277,35 @@ Now that we have deployed our droplet, we should be able to connect to the serve
 
 1. From the home directory of your host machine, navigate to your .ssh folder:
 
-```bash
-cd .ssh	
-```
+> ```bash
+> cd .ssh	
+> ```
 
 3. Create a new file with neovim in the .ssh folder named *config*:
 
-```bash
-nvim config
-```
+> ```bash
+> nvim config
+> ```
 
 4. Paste the following information into the config file (press I on your keyboard to edit). Ensure to change the default fields to a name of your preference, the droplet IP you copied, and the name of the key we created earlier:
 
-```
-Host <enter-name>
-  HostName <droplet-IP>
-  User arch
-  PreferredAuthentications publickey
-  IdentityFile ~/.ssh/<key-name>
-  StrictHostKeyChecking no
-  UserKnownHostsFile /dev/null
-```
+> ```
+> Host <enter-name>
+>   HostName <droplet-IP>
+>   User arch
+>   PreferredAuthentications publickey
+>   IdentityFile ~/.ssh/<key-name>
+>   StrictHostKeyChecking no
+>   UserKnownHostsFile /dev/null
+> ```
 
 5. Save and quit neovim (:wq).
 
 6. Run the following command into the terminal to access your droplet (ensure to change default field):
-```bash
-ssh <name-you-entered-in-config-file>
-```
+
+> ```bash
+> ssh <name-you-entered-in-config-file>
+> ```
 
 Congratulations! You have completed all the steps required to create and access a brand new DigitalOcean droplet using the 'doctl' and command line tools. 
 
