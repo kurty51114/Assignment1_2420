@@ -115,7 +115,7 @@ Once you have downloaded the Arch image, head back to the DigitalOcean Control P
 4. Click the **Upload Image** button.
 5. Upload the Arch Linux image that you downloaded
 
-> [!NOTE] After clicking upload, a new settings box will open and you will need to select the following settings:
+After clicking upload, a new settings box will open and you will need to select the following settings:
 
 6. Select **Arch Linux** in the dropdown menu
 7. Select **San Francisco 3** for the datacentre
@@ -128,7 +128,8 @@ You have successfully uploaded the Arch image to digitalOcean.
 
 A DigitalOcean droplet is a new instance of a sever hosted by DigitalOcean, the Software as a Service (SaaS) provider that we're using. In the following steps, we will be creating and configuring a droplet in the San Francisco 3 datacentre running Arch Linux. 
 
-> [!NOTE] We are using the San Francisco 3 datacentre because it is the closest in proximity to our location, meaning we have the best chance for a strong connection.
+> [!NOTE]
+> : We are using the San Francisco 3 datacentre because it is the closest in proximity to our location, meaning we have the best chance for a strong connection.
 ### Uploading SSH Public Key to DigitalOcean Account
 
 The first step to setting up a new DigitalOcean droplet is to upload our previously created public key to DigitalOcean. We can use the doctl tool to perform this task. In Terminal on your local machine, run the following command ensuring to change the default fields to your own:
@@ -141,7 +142,7 @@ This command uses the doctl tool to import the ssh key from the ssh key pair we 
 
 The terminal output should appear as follows:
 
-![uploadPublicKey](uploadPublicKey.png)
+![uploadPublicKey](assets/uploadPublicKey.png)
 
 You have successfully uploaded your public key to DigitalOcean.
 
@@ -158,7 +159,8 @@ To create the cloud-init file that we will be using to set up the new droplet:
 cat ~/.ssh/<public-key>.pub
 ```
 
-*The cat command (meaning concatenate) prints out the contents of any file whose path we input as the argument for the command.*
+> [!NOTE]
+> The cat command (meaning concatenate) prints out the contents of any file whose path we input as the argument for the command.*
 
 2. Save the contents of the file listed below the command. We will be using this line later on when completing the cloud-init file.
 
@@ -253,7 +255,7 @@ This command is one of the longest commands we will run during setup. The comman
 
 The following information should appear on your Terminal indicating a successful droplet deployment:
 
-![dropImg](dropImg.png)
+![dropImg](assets/dropImg.png)
 
 In this example, the name of the droplet is lvl3drop.
 
@@ -266,7 +268,7 @@ Now that we have deployed our droplet, we should be able to connect to the serve
 
 1. Copy down the Public IPv4 address that is shown under your droplet. It should be the third item from the left displayed in the droplet information.
 
-![dropIp](dropIp.png)
+![dropIp](assets/dropIp.png)
 
 1. From the home directory of your host machine, navigate to your .ssh folder:
 
