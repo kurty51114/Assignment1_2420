@@ -5,7 +5,7 @@
 ---
 ## Introduction
 
-This guide takes you step-by-step how to create a new digital ocean droplet running Arch using doctl and command line. We will be generating ssh keys, setting up using cloud-init configurations, and using doctl to set up the droplet. 
+This guide takes you step-by-step how to create a new digital ocean droplet running Arch using doctl and command line. A DigitalOcean droplet is a new instance of a sever hosted by DigitalOcean, the Software as a Service (SaaS) provider that we're using. We will be generating ssh keys, setting up using cloud-init configurations, and using doctl to set up the droplet. 
 
 All necessary files and instructions are included in the current GitHub repository aside from the Arch image, and it is assumed that you have already have a DigitalOcean account set up and will be using this tutorial from a host machine currently running Arch (as per assignment instructions). 
 
@@ -23,7 +23,7 @@ The ssh-keygen package should already be installed onto your system. SSH informa
 > ssh-keygen -t ed25519 -f ~/ssh/<key-name> -C "youremail@email.com"
 > ```
 
-This command uses the ssh-keygen module, and it takes the type (-t), filename (-f), and comment (-C) fields. This command specifically uses the "ed25519" cryptography algorithm, points to the .ssh folder where the key will be created, and adds your email as a comment. 
+This command uses the ssh-keygen module, and it takes the type (-t), filename (-f), and comment (-C). This command specifically uses the "ed25519" cryptography algorithm, points to the .ssh folder where the key will be created, and adds your email as a comment. 
 
 Congratulations! You have successfully created an ssh key pair. Two files will be created, one file with the name you selected and one with a file extension *.pub*. The contents of these files contains the private and public keys, respectively. You will be using these keys later on in configurating connection to your droplet.
 
@@ -43,7 +43,7 @@ Doctl is the official DigitalOcean command line interface (CLI). Doctl is the to
 
 The following will show up on your terminal:
 
-![InvokeResult.png](assets/InvokeResult.png)
+![InvokeResult.png](./assets/InvokeResult.png)
 
 Follow the prompts to complete the installation of doctl. 
 
@@ -55,7 +55,7 @@ The next step is to create an access token, which is used to connect our Digital
 
 1. Go to your control panel on the DigitalOcean website. On the left navigation bar, scroll down to the following section and click on **API**:
 
-![apiMenu.png](assets/apiMenu.png)
+![apiMenu.png](./assets/apiMenu.png)
 
 2. Click on **Generate New Token** once the following window appears:
 
@@ -63,7 +63,7 @@ The next step is to create an access token, which is used to connect our Digital
 
 3. Fill out the form according to your preferences. For this example, the token name will be set to newArchServer1, granting full access for the duration of 30 days. Click on **Generate Token**.
 
-![PATForm](assets/PATForm.png)
+![PATForm](./assets/PATForm.png)
 
 4. Copy the newly generated token from the textbox on the following screen. 
 
@@ -81,11 +81,11 @@ This command starts the doctl authentication tool with which you can use the tok
 
 6. Paste the authentication token you copied earlier beside *Enter your access token* and press **Enter**:
 
-![enterToken](assets/enterToken.png)
+![enterToken](./assets/enterToken.png)
 
 The terminal should show *Validating token...* Followed by a checkmark to indicate authorization success:
 
-![tokenValid](assets/tokenValid.png)
+![tokenValid](./assets/tokenValid.png)
 
 7. Run the following command to confirm authentication:
 
@@ -95,7 +95,7 @@ The terminal should show *Validating token...* Followed by a checkmark to indica
 
 The terminal should show a table of the following information, including user email, team, droplet limit, email verification status and user UUID as follows: 
 
-![accountGet](assets/accountGet.png)
+![accountGet](./assets/accountGet.png)
 
 Congratulations! You have successfully installed and connected your account to doctl on your current arch server.
 
@@ -127,7 +127,7 @@ You have successfully uploaded the Arch image to digitalOcean.
 ---
 ## Creating Arch Droplet from Host Machine
 
-A DigitalOcean droplet is a new instance of a sever hosted by DigitalOcean, the Software as a Service (SaaS) provider that we're using. In the following steps, we will be creating and configuring a droplet in the San Francisco 3 datacentre running Arch Linux. 
+In the following steps, we will be creating and configuring a droplet in the San Francisco 3 datacentre running Arch Linux. 
 
 > [!NOTE]
 > We are using the San Francisco 3 datacentre because it is the closest in proximity to our location, meaning we have the best chance for a strong connection.
@@ -144,7 +144,7 @@ This command uses the doctl tool to import the ssh key from the ssh key pair we 
 
 The terminal output should appear as follows:
 
-![uploadPublicKey](assets/uploadPublicKey.png)
+![uploadPublicKey](./assets/uploadPublicKey.png)
 
 You have successfully uploaded your public key to DigitalOcean.
 
@@ -260,7 +260,7 @@ This command is one of the longest commands we will run during setup. The comman
 
 The following information should appear on your Terminal indicating a successful droplet deployment:
 
-![dropImg](assets/dropImg.png)
+![dropImg](./assets/dropImg.png)
 
 In this example, the name of the droplet is lvl3drop.
 
@@ -273,7 +273,7 @@ Now that we have deployed our droplet, we should be able to connect to the serve
 
 1. Copy down the Public IPv4 address that is shown under your droplet. It should be the third item from the left displayed in the droplet information.
 
-![dropIp](assets/dropIp.png)
+![dropIp](./assets/dropIp.png)
 
 1. From the home directory of your host machine, navigate to your .ssh folder:
 
