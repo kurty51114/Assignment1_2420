@@ -137,7 +137,7 @@ In the following steps, we will be creating and configuring a droplet in the San
 The first step to setting up a new DigitalOcean droplet is to upload our previously created public key to DigitalOcean. We can use the doctl tool to perform this task. In Terminal on your local machine, run the following command ensuring to change the default fields to your own:
 
 > ```bash
-> doctl compute ssh-key import <insert-key-name> --public-key-file ~/.ssh/ <your-key.pub>
+> doctl compute ssh-key import <insert-key-name> --public-key-file ~/.ssh/<your-key.pub>
 > ```
 
 This command uses the doctl tool to import the ssh key from the ssh key pair we created in earlier steps to DigitalOcean.
