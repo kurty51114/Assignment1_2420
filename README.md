@@ -5,7 +5,7 @@
 ---
 ## Introduction
 
-This guide takes you step-by-step how to create a new digital ocean droplet running Arch using doctl and command line. A DigitalOcean droplet is a new instance of a sever hosted by DigitalOcean, the Software as a Service (SaaS) provider that we're using. We will be generating ssh keys, setting up using cloud-init configurations, and using doctl to set up the droplet. 
+This guide takes you step-by-step how to create a new digital ocean droplet running Arch using doctl and command line. A DigitalOcean droplet is a new instance of a sever hosted by DigitalOcean, the Software as a Service (SaaS) provider that we're using [^3]. We will be generating ssh keys, setting up using cloud-init configurations, and using doctl to set up the droplet. 
 
 All necessary files and instructions are included in the current GitHub repository aside from the Arch image, and it is assumed that you have already have a DigitalOcean account set up and will be using this tutorial from a host machine currently running Arch (as per assignment instructions). 
 
@@ -13,9 +13,9 @@ All necessary files and instructions are included in the current GitHub reposito
 
 ## Generating SSH keys (CLI)
 
-First, we need to generate an SSH key pair, which is an encrypted key pair that we use as authentication to securely connect to our droplet.
+First, we need to generate an SSH key pair, which is an encrypted key pair that we use as authentication to securely connect to our droplet[^9].
 
-The ssh-keygen package should already be installed onto your system. SSH information is stored in a folder called .ssh in your home directory. If you do not see your .ssh folder in your home directory, create it before conducting the following steps.
+The ssh-keygen package should already be installed onto your system. SSH information is stored in a folder called .ssh in your home directory. If you do not see your .ssh folder in your home directory, create one before conducting the following steps.
 
 1. Open a terminal window and run the following command to generate a new SSH key pair. Make sure to change the default fields to your own key name and email address to your preferences. Follow the prompts in the terminal window to generate your key:
 
@@ -23,14 +23,14 @@ The ssh-keygen package should already be installed onto your system. SSH informa
 > ssh-keygen -t ed25519 -f ~/ssh/<key-name> -C "youremail@email.com"
 > ```
 
-This command uses the ssh-keygen module, and it takes the type (-t), filename (-f), and comment (-C). This command specifically uses the "ed25519" cryptography algorithm, points to the .ssh folder where the key will be created, and adds your email as a comment. 
+This command uses the ssh-keygen module, and it takes the type (-t), filename (-f), and comment (-C)[^9]. This command specifically uses the "ed25519" cryptography algorithm, points to the .ssh folder where the key will be created, and adds your email as a comment . 
 
 Congratulations! You have successfully created an ssh key pair. Two files will be created, one file with the name you selected and one with a file extension *.pub*. The contents of these files contains the private and public keys, respectively. You will be using these keys later on in configurating connection to your droplet.
 
 ---
 ## Downloading Doctl to set up Arch Linux Remote Server
 
-Doctl is the official DigitalOcean command line interface (CLI). Doctl is the tool we will be using to interact with the DigitalOcean API and set up our remote server (doctl Command Line Interface, 2024).  To download Doctl:
+Doctl is the official DigitalOcean command line interface (CLI). Doctl is the tool we will be using to interact with the DigitalOcean API and set up our remote server[^4]. To download Doctl:
 
 1. Run the following command in the terminal window from your home directory:
 
@@ -51,7 +51,7 @@ Follow the prompts to complete the installation of doctl.
 
 ## Creating an Access Token to Connect Doctl to your DigitalOcean Account
 
-The next step is to create an access token, which is used to connect our DigitalOcean account to the doctl tool used in the terminal. To create our access token and connect doctl to our DigitalOcean account:
+The next step is to create an access token, which is used to connect our DigitalOcean account to the doctl tool used in the terminal[^9]. To create our access token and connect doctl to our DigitalOcean account:
 
 1. Go to your control panel on the DigitalOcean website. On the left navigation bar, scroll down to the following section and click on **API**:
 
@@ -77,7 +77,7 @@ Make sure to replace the authorization context name with the name of your choice
 > doctl auth init --context <NAME>
 > ```
 
-This command starts the doctl authentication tool with which you can use the token you just created to connect doctl to your account with DigitalOcean
+This command starts the doctl authentication tool with which you can use the token you just created to connect doctl to your account with DigitalOcean[^4].
 
 6. Paste the authentication token you copied earlier beside *Enter your access token* and press **Enter**:
 
@@ -93,7 +93,7 @@ The terminal should show *Validating token...* Followed by a checkmark to indica
 > doctl account get
 > ```
 
-The terminal should show a table of the following information, including user email, team, droplet limit, email verification status and user UUID as follows: 
+The terminal should show a table of the following information, including user email, team, droplet limit, email verification status and user UUID as follows[^9]: 
 
 ![accountGet](./assets/accountGet.png)
 
@@ -102,7 +102,7 @@ Congratulations! You have successfully installed and connected your account to d
 ---
 ## Uploading Arch Image to DigitalOcean
 
-Before we can start creating a droplet with doctl, we must first install the Arch linux image, which contains all the files and data needed to run Arch on the system we are setting up. This includes the kernel, system files and directories. 
+Before we can start creating a droplet with doctl, we must first install the Arch linux image, which contains all the files and data needed to run Arch on the system we are setting up. This includes the kernel, system files and directories [^1]. 
 
 You can find the Arch Linux image from this link: 
 
@@ -132,15 +132,15 @@ In the following steps, we will be creating and configuring a droplet in the San
 > [!NOTE]
 > We are using the San Francisco 3 datacentre because it is the closest in proximity to our location, meaning we have the best chance for a strong connection.
 
-### Uploading SSH Public Key to DigitalOcean Account
+### Uploading SSH Public Key to DigitalOcean Account[^5]
 
-The first step to setting up a new DigitalOcean droplet is to upload our previously created public key to DigitalOcean. We can use the doctl tool to perform this task. In Terminal on your local machine, run the following command ensuring to change the default fields to your own:
+The first step to setting up a new DigitalOcean droplet is to upload our previously created public key to DigitalOcean. We can use the doctl tool to perform this task . In Terminal on your local machine, run the following command ensuring to change the default fields to your own:
 
 > ```bash
 > doctl compute ssh-key import <insert-key-name> --public-key-file ~/.ssh/<your-key.pub>
 > ```
 
-This command uses the doctl tool to import the ssh key from the ssh key pair we created in earlier steps to DigitalOcean.
+This command uses the doctl tool to import the ssh key from the ssh key pair we created in earlier steps to DigitalOcean[^5].
 
 The terminal output should appear as follows:
 
@@ -151,7 +151,7 @@ You have successfully uploaded your public key to DigitalOcean.
 --- 
 ### Creating a Cloud-init File for Droplet Setup
 
-When setting up a droplet, we can create a cloud-init file which will provide specific preferences, packages to install, user profiles, and other information we would want to include during setup to simplify and automate the process. Using a cloud-init file also helps to reproduce the same setup for other droplets by using the same cloud-init file.
+When setting up a droplet, we can create a cloud-init file which will provide specific preferences, packages to install, user profiles, and other information we would want to include during setup to simplify and automate the process. Using a cloud-init file also helps to reproduce the same setup for other droplets by using the same cloud-init file[^10].
 
 To create the cloud-init file that we will be using to set up the new droplet:
 
@@ -172,7 +172,7 @@ To create the cloud-init file that we will be using to set up the new droplet:
 > sudo pacman -S neovim
 > ```
 
-Neovim is a text editor that provides much greater functionality than simply using the terminal CLI. Not only will we be using Neovim to visualize/edit our cloud-init file, but it will be useful in many various different cases further along in our  and in professional settings.
+Neovim is a text editor that provides much greater functionality than simply using the terminal CLI. Not only will we be using Neovim to visualize/edit our cloud-init file, but it will be useful in many various different cases further along in our  and in professional settings[^11].
 
 With Neovim installed, we can now use it to edit our cloud-init file.
 
@@ -184,9 +184,9 @@ With Neovim installed, we can now use it to edit our cloud-init file.
 
 The neovim text editor will create and open the cloud-init file in neovim. 
 
-6. Press the I key to enable editing on neovim. At the bottom of the Terminal, you should see the word Insert.
+6. Press the I key to enable editing on neovim. At the bottom of the Terminal, you should see the word Insert[^11].
 
-7. Paste the following into the file and make changes to the default values:
+7. Paste the following into the file and make changes to the default values[^10]:
 
 > ```yaml
 > #cloud-config
@@ -218,7 +218,7 @@ The neovim text editor will create and open the cloud-init file in neovim.
 > - The default value *your-public-key-here* is replaced by the text we copied from the public key file. 
 > - In general, it is good practice to keep the same name for your user name and your group name, reflecting the default naming convention.
 
-8. Press escape and then type **:wq** to save and quit the file.
+8. Press escape and then type **:wq** to save and quit the file[^11].
 
 Your Cloud-init file has been successfully created.
 
@@ -227,29 +227,29 @@ Your Cloud-init file has been successfully created.
 
 You have now completed all the steps you need in preparation for deploying the DigitalOcean droplet. Now that we have everything we need, to deploy the droplet:
 
-1. Run the following command into the Terminal:
+1. Run the following command into the Terminal[^10]:
 
 > ```bash
 > doctl compute ssh-key list
 > ```
 
-This command will return the list of SSH keys we have connected to DigitalOcean. We will be using the SSH Fingerprint connected to the SSH you created, so copy down the contents under the Fingerprint columb of the SSH key you will be using.
+This command will return the list of SSH keys we have connected to DigitalOcean. We will be using the SSH Fingerprint connected to the SSH you created, so copy down the contents under the Fingerprint columb of the SSH key you will be using [^5].
 
-2. Get the list of images within DigitalOcean's library using the following command:
+2. Get the list of images within DigitalOcean's library using the following command[^8]:
 
 > ```bash
 > doctl compute image list
 > ```
 
-This command returns the list of images available to be used to deploy droplets. Search for the Arch linux image that we uploaded to DigitalOcean; under **Type**, the custom image should say *custom*, and under **Distribution**, the image should say *Arch Linux*. Copy down the ID of the image.
+This command returns the list of images available to be used to deploy droplets. Search for the Arch linux image that we uploaded to DigitalOcean; under **Type**, the custom image should say *custom*, and under **Distribution**, the image should say *Arch Linux*. Copy down the ID of the image[^6].
 
-3. Run the following command to deploy your droplet:
+3. Run the following command to deploy your droplet[^10]:
 
 > ```bash 
 > doctl compute droplet create --image <image-ID> --size s-1vcpu-1gb-amd --region sfo3 --ssh-keys <ssh-key-fingerprint> --user-data-file <path-to-your-cloud-init-file> --wait <name of your droplet>
 > ```
 
-This command is one of the longest commands we will run during setup. The command operates as follows:
+This command is one of the longest commands we will run during setup. The command operates as follows[^10]:
 
 - **--image** - the ID of the arch image that we uploaded to DigitalOcean
 - **--size** - the specifications of the server we are creating (in this example, we are creating a system running AMD with 1 vcpu and 1gb RAM)
@@ -267,7 +267,7 @@ In this example, the name of the droplet is lvl3drop.
 Congratulations! You have successfully deployed the arch droplet on DigitalOcean.
 
 ---
-### Connecting to your DigitalOcean Droplet
+### Connecting to your DigitalOcean Droplet[^5]
 
 Now that we have deployed our droplet, we should be able to connect to the server after completing the following steps:
 
@@ -287,7 +287,7 @@ Now that we have deployed our droplet, we should be able to connect to the serve
 > nvim config
 > ```
 
-4. Paste the following information into the config file (press I on your keyboard to edit). Ensure to change the default fields to a name of your preference, the droplet IP you copied, and the name of the key we created earlier:
+4. Paste the following information into the config file (press I on your keyboard to edit). Ensure to change the default fields to a name of your preference, the droplet IP you copied, and the name of the key we created earlier[^5]:
 
 > ```
 > Host <enter-name>
@@ -312,18 +312,26 @@ Congratulations! You have completed all the steps required to create and access 
 ---
 ## References
 
-DigitalOcean. (June 2024). _doctl Command Line Interface_. [https://docs.digitalocean.com/reference/doctl/](https://docs.digitalocean.com/reference/doctl/)
-    
-DigitalOcean. (July 2024). _doctl compute. [https://docs.digitalocean.com/reference/doctl/reference/compute/](https://docs.digitalocean.com/reference/doctl/reference/compute/)
-    
-DigitalOcean. (July 2024). _doctl compute image create_. [https://docs.digitalocean.com/reference/doctl/reference/compute/image/create/](https://docs.digitalocean.com/reference/doctl/reference/compute/image/create/)
-    
-DigitalOcean. (August 2024). _Install doctl_. [https://docs.digitalocean.com/reference/doctl/how-to/install/](https://docs.digitalocean.com/reference/doctl/how-to/install/)
-    
-Arch Linux. (July 2024). _Cloud-init_. [https://wiki.archlinux.org/title/Cloud-init](https://wiki.archlinux.org/title/Cloud-init)
-    
-DigitalOcean. (August 2024). _Automate Droplet Setup with Cloud-Init_. [https://docs.digitalocean.com/products/droplets/how-to/automate-setup-with-cloud-init/](https://docs.digitalocean.com/products/droplets/how-to/automate-setup-with-cloud-init/)
-    
-DigitalOcean. (July 2024). _Create Droplets from Custom Images_. [https://docs.digitalocean.com/products/custom-images/how-to/create-droplets/](https://docs.digitalocean.com/products/custom-images/how-to/create-droplets/)
-    
-Neovim. (September 2024). _Vim Index_. [https://neovim.io/doc/user/vimindex.html#index](https://neovim.io/doc/user/vimindex.html#index)
+Here’s the list with the numbers adjusted in alphabetical order:
+
+[^1]: Arch Linux. (July 2024). Cloud-init. [https://wiki.archlinux.org/title/Cloud-init](https://wiki.archlinux.org/title/Cloud-init)
+
+[^2]: Arch Linux. (September 2024). Unified Kernel Image. [https://wiki.archlinux.org/title/Unified_kernel_image](https://wiki.archlinux.org/title/Unified_kernel_image)
+
+[^3]: DigitalOcean. (2024) Meet DigitalOcean. [https://www.digitalocean.com/](https://www.digitalocean.com/)
+
+[^4]: DigitalOcean. (June 2024). doctl Command Line Interface. [https://docs.digitalocean.com/reference/doctl/](https://docs.digitalocean.com/reference/doctl/)
+
+[^5]: DigitalOcean (June 2021). How To Configure SSH Key-Based Authentication on a Linux Server. [https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server](https://www.digitalocean.com/community/tutorials/how-to-configure-ssh-key-based-authentication-on-a-linux-server)
+
+[^6]: DigitalOcean. (July 2024). doctl compute. [https://docs.digitalocean.com/reference/doctl/reference/compute/](https://docs.digitalocean.com/reference/doctl/reference/compute/)
+
+[^7]: DigitalOcean. (July 2024). doctl compute image create. [https://docs.digitalocean.com/reference/doctl/reference/compute/image/create/](https://docs.digitalocean.com/reference/doctl/reference/compute/image/create/)
+
+[^8]: DigitalOcean. (July 2024). Create Droplets from Custom Images. [https://docs.digitalocean.com/products/custom-images/how-to/create-droplets/](https://docs.digitalocean.com/products/custom-images/how-to/create-droplets/)
+
+[^9]: DigitalOcean. (August 2024). Install doctl. [https://docs.digitalocean.com/reference/doctl/how-to/install/](https://docs.digitalocean.com/reference/doctl/how-to/install/)
+
+[^10]: DigitalOcean. (August 2024). Automate Droplet Setup with Cloud-Init. [https://docs.digitalocean.com/products/droplets/how-to/automate-setup-with-cloud-init/](https://docs.digitalocean.com/products/droplets/how-to/automate-setup-with-cloud-init/)
+
+[^11]: Neovim. (September 2024). Vim Index. [https://neovim.io/doc/user/vimindex.html#index](https://neovim.io/doc/user/vimindex.html#index)
